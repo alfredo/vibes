@@ -1,0 +1,57 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply antialiased;
+    background-color: #fdf6e3;
+    font-family: "Neuton", serif;
+  }
+}
+
+@layer components {
+  .vibe-input {
+    @apply w-full p-4 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all duration-300 bg-white/90 backdrop-blur-md shadow-sm;
+    font-family: "Neuton", serif;
+  }
+
+  .vibe-card {
+    @apply bg-white/90 backdrop-blur-md rounded-2xl shadow-xl border border-white/30 p-8;
+  }
+
+  .histogram-bar {
+    @apply transition-all duration-700 ease-out;
+  }
+
+  .error-message {
+    @apply text-red-700 text-sm mt-3 p-4 bg-red-50 rounded-xl border border-red-200 shadow-sm;
+  }
+
+  .success-message {
+    @apply text-green-700 text-sm mt-3 p-4 bg-green-50 rounded-xl border border-green-200 shadow-sm;
+  }
+
+  .container {
+    @apply mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.3s ease-out;
+  }
+
+  @keyframes slideUp {
+    from {
+      transform: translateY(calc(100% + 64px));
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+}
