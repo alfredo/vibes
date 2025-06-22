@@ -65,7 +65,7 @@
 
 <svelte:head>
   <title>What's today's vibes?</title>
-  <meta name="description" content="Create beautiful histogram visualizations of your daily vibes and mood composition" />
+  <meta name="description" content="What's today's vibes?" />
 </svelte:head>
 
 <div class="min-h-screen flex flex-col bg-[#fdf6e3]">

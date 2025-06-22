@@ -256,7 +256,6 @@
       <p class="text-2xl font-semibold mb-3">Ready to visualize your vibes?</p>
       <p class="text-lg">Click "Show Input" below to enter your daily vibes</p>
       <div class="mt-6 text-sm text-[#93a1a1] max-w-md mx-auto">
-        <p>Built with D3.js for maximum flexibility and beautiful animations</p>
         <p class="mt-2">Format: <code class="bg-[#fdf6e3] px-2 py-1 rounded border border-[#d3af86]">30 Happy</code></p>
       </div>
     </div>

@@ -1,6 +1,6 @@
 # Vibes Checker 🌈
 
-A beautiful, interactive web application for visualizing your daily mood composition through animated histogram charts. Built with SvelteKit and D3.js.
+What's today's vibes?. Built with SvelteKit and D3.js.
 
 ## ✨ Features
 
@@ -9,7 +9,7 @@ A beautiful, interactive web application for visualizing your daily mood composi
 - **Random Color Generation**: Each vibe gets a unique, consistent color based on its label
 - **URL Sharing**: Share your vibe configurations with others via shareable URLs
 - **PNG Export**: Download your vibe charts as high-resolution PNG images
-- **Responsive Design**: Works beautifully on desktop and mobile devices
+- **Responsive Design**: Works on desktop and mobile devices
 - **Real-time Validation**: Instant feedback on input format and percentage totals
 - **Gen Z Vocabulary**: Includes modern slang and expressions alongside classic emotions
 
