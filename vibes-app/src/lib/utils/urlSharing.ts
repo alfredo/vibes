@@ -7,8 +7,10 @@ export function encodeVibesForUrl(inputText: string): string {
   if (!inputText.trim()) return '';
 
   try {
-    // Use base64 encoding to handle special characters and newlines
-    const encoded = btoa(inputText);
+    // First encode to UTF-8, then base64 to handle emojis and special characters
+    const utf8Bytes = new TextEncoder().encode(inputText);
+    const binaryString = Array.from(utf8Bytes, byte => String.fromCharCode(byte)).join('');
+    const encoded = btoa(binaryString);
     // Make it URL-safe by replacing characters that might cause issues
     return encoded.replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '');
   } catch (error) {
@@ -32,7 +34,13 @@ export function decodeVibesFromUrl(encoded: string): string {
       restored += '=';
     }
 
-    return atob(restored);
+    // Decode base64 to binary string, then convert back to UTF-8
+    const binaryString = atob(restored);
+    const utf8Bytes = new Uint8Array(binaryString.length);
+    for (let i = 0; i < binaryString.length; i++) {
+      utf8Bytes[i] = binaryString.charCodeAt(i);
+    }
+    return new TextDecoder().decode(utf8Bytes);
   } catch (error) {
     console.error('Failed to decode vibes from URL:', error);
     return '';
