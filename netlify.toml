@@ -1,7 +1,7 @@
 [build]
   base = "vibes-app"
   command = "npm run build"
-  publish = "vibes-app/build"
+  publish = "build"
 
 [build.environment]
   NODE_VERSION = "18"
