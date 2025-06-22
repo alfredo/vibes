@@ -106,6 +106,6 @@ export function parseVibesInput(input: string): ParseResult {
   };
 }
 
-export function generateExampleInput(): string {
-  return getRandomExample();
+export function generateExampleInput(emojiMode: boolean = false): string {
+  return getRandomExample(emojiMode);
 }

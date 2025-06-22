@@ -11,7 +11,7 @@ function getInitialInputText(): string {
       return urlVibes;
     }
   }
-  return generateExampleInput();
+  return generateExampleInput(false); // Default to text mode on initial load
 }
 
 export const inputText = writable(getInitialInputText());
@@ -41,7 +41,7 @@ export { getVibeColor } from '../config/defaults.js';
 export const vibesActions = {
   updateInput: (text: string) => inputText.set(text),
   clearInput: () => inputText.set(''),
-  loadExample: () => inputText.set(generateExampleInput()),
+  loadExample: (emojiMode: boolean = false) => inputText.set(generateExampleInput(emojiMode)),
   toggleErrors: () => showErrors.update(show => !show),
   setInputFocus: (focused: boolean) => isInputFocused.set(focused),
   toggleInputMinimized: () => isInputMinimized.update(minimized => !minimized),

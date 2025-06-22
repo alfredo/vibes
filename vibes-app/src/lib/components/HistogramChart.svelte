@@ -32,9 +32,9 @@
     // If no entries at all, don't draw anything (let the empty state show)
     if (!hasEntries) return;
 
-    const margin = { top: 30, right: 160, bottom: 30, left: 20 };
-    const width = 600;
-    const height = 500;
+    const margin = { top: 30, right: 140, bottom: 30, left: 20 };
+    const width = 400;
+    const height = 600;
     const chartWidth = width - margin.left - margin.right;
     const chartHeight = height - margin.top - margin.bottom;
 
@@ -84,8 +84,8 @@
       .attr("y", d => yScale(d.endY))
       .attr("height", 0)
       .attr("fill", d => d.color)
-      .attr("stroke", "#fff")
-      .attr("stroke-width", 2)
+      .attr("stroke", "#c0c0c0")
+      .attr("stroke-width", 1)
       .attr("rx", 4)
       .transition()
       .duration(800)
@@ -98,7 +98,7 @@
       .attr("y", d => yScale(d.startY + d.height / 2))
       .attr("text-anchor", "middle")
       .attr("dominant-baseline", "middle")
-      .attr("fill", "white")
+      .attr("fill", "#4a4a4a")
       .attr("font-weight", "bold")
       .attr("font-size", "16px")
       .attr("font-family", "Neuton, serif")
@@ -119,7 +119,7 @@
       .attr("y1", d => yScale(d.startY + d.height / 2))
       .attr("x2", 100)
       .attr("y2", d => yScale(d.startY + d.height / 2))
-      .attr("stroke", "#666")
+      .attr("stroke", "#c0c0c0")
       .attr("stroke-width", 1)
       .attr("opacity", 0)
       .transition()
@@ -134,7 +134,7 @@
       .attr("y1", d => yScale(d.startY + d.height / 2))
       .attr("x2", 130)
       .attr("y2", d => yScale(d.startY + d.height / 2))
-      .attr("stroke", "#666")
+      .attr("stroke", "#c0c0c0")
       .attr("stroke-width", 1)
       .attr("opacity", 0)
       .transition()
@@ -148,10 +148,14 @@
       .attr("x", 180)
       .attr("y", d => yScale(d.startY + d.height / 2))
       .attr("dominant-baseline", "middle")
-      .attr("font-size", "14px")
+      .attr("font-size", d => {
+        // Check if label is an emoji (contains non-ASCII characters)
+        const isEmoji = /[\u{1F600}-\u{1F64F}]|[\u{1F300}-\u{1F5FF}]|[\u{1F680}-\u{1F6FF}]|[\u{1F1E0}-\u{1F1FF}]|[\u{2600}-\u{26FF}]|[\u{2700}-\u{27BF}]/u.test(d.label);
+        return isEmoji ? "28px" : "14px";
+      })
       .attr("font-weight", "600")
       .attr("font-family", "Neuton, serif")
-      .attr("fill", "#073642")
+      .attr("fill", "#4a4a4a")
       .attr("opacity", 0)
       .text(d => d.label)
       .transition()
@@ -178,7 +182,7 @@
       .attr("font-size", "18px")
       .attr("font-weight", "bold")
       .attr("font-family", "Neuton, serif")
-      .attr("fill", "#073642")
+      .attr("fill", "#4a4a4a")
       .text("Today's vibes");
 
     // Add total indicator at bottom
@@ -205,7 +209,7 @@
         .attr("font-size", "14px")
         .attr("font-style", "italic")
         .attr("font-family", "Neuton, serif")
-        .attr("fill", "#666")
+        .attr("fill", "#4a4a4a")
         .text(`${remaining.toFixed(1)}% Unaccounted`);
     }
   }

@@ -16,9 +16,30 @@ export const vibesConfig: VibesConfig = {
 };
 
 // Helper function to generate a random example
-export function getRandomExample(): string {
+export function getRandomExample(useEmojis: boolean = false): string {
   // Pool of possible vibes - mix of classic and Gen Z terms
-  const vibeWords = [
+    const vibeWords = useEmojis ? [
+    // Single emoji - Positive emotions
+    '😊', '🤩', '😄', '🙏', '🌟', '😇', '🌈', '😌', '🙌', '🌺',
+
+    // Single emoji - Energy/Productivity
+    '🚀', '⚡', '🎯', '🎨', '🔥', '💯', '💪', '✨', '👑', '💎',
+
+    // Single emoji - Calm/Relaxed
+    '🛋️', '☮️', '🧘', '🌸', '💅', '🌙', '🍃', '🕊️', '🌊', '🌿',
+
+    // Single emoji - Contemplative
+    '🤔', '💭', '🧐', '🔮', '🌅', '🍂', '📚', '🧠', '🌌', '🎭',
+
+    // Single emoji - Tired/Stressed
+    '😴', '😰', '😬', '🤯', '😤', '😵‍💫', '🧂', '😮‍💨', '💤', '🌧️',
+
+    // Two-emoji combinations - Enhanced emotions
+    '😊✨', '🚀💯', '😴💤', '🤩🔥', '😰🌧️', '😌🌸', '🎨💡', '🎯⚡',
+    '🧘☮️', '🤔💭', '💪👑', '😄🌈', '🔥💎', '🌟✨', '😮‍💨🧂',
+    '🦄💫', '🌪️💥', '👸💅', '🌱🌿', '🎵🎭', '💀😂', '👀📸',
+    '🏠💕', '📝✅', '🍽️👑', '🔮🌌', '🌅🍂', '💤😴', '🎪🤪'
+  ] : [
     // Classic vibes
     'Happy', 'Productive', 'Tired', 'Excited', 'Stressed', 'Calm', 'Creative',
     'Focused', 'Anxious', 'Grateful', 'Energetic', 'Relaxed', 'Curious',
@@ -77,19 +98,72 @@ export function getRandomExample(): string {
     .join('\n');
 }
 
-// Predefined pastel color palette - 10 distinct colors
+// Darker pastel color palette - 10 distinct colors with better contrast
 const PASTEL_COLORS = [
-  '#FFB3E6', // Soft Pink
-  '#B3E5FF', // Light Blue
-  '#C7FFB3', // Mint Green
-  '#FFE6B3', // Peach
-  '#E6B3FF', // Lavender
-  '#FFD9B3', // Coral
-  '#B3FFE6', // Aqua
-  '#FFB3D9', // Rose
-  '#D9B3FF', // Periwinkle
-  '#B3FFD9'  // Sage
+  '#E691C3', // Darker Soft Pink
+  '#7DBAED', // Darker Light Blue
+  '#9FE67D', // Darker Mint Green
+  '#F5C97D', // Darker Peach
+  '#C97DE6', // Darker Lavender
+  '#F5B07D', // Darker Coral
+  '#7DE6C9', // Darker Aqua
+  '#E67DB0', // Darker Rose
+  '#B07DE6', // Darker Periwinkle
+  '#7DE6B0'  // Darker Sage
 ];
+
+// Emoji mappings for different types of vibes
+const EMOJI_MAPPINGS: { [key: string]: string } = {
+  // Positive emotions
+  'happy': '😊', 'excited': '🤩', 'joyful': '😄', 'grateful': '🙏', 'optimistic': '🌟',
+  'thriving': '🌱', 'confident': '💪', 'inspired': '✨', 'hopeful': '🌈', 'satisfied': '😌',
+  'content': '😇', 'peaceful': '☮️', 'serene': '🧘', 'blessed': '🙌', 'motivated': '🔥',
+
+  // Energy levels
+  'energetic': '⚡', 'productive': '🚀', 'focused': '🎯', 'determined': '💯', 'creative': '🎨',
+  'vibing': '🎵', 'bussin energy': '💥', 'fire mood': '🔥', 'slay mode': '👑', 'iconic behavior': '💎',
+
+  // Chill/Relaxed
+  'calm': '😌', 'relaxed': '🛋️', 'chill': '😎', 'soft life': '🌸', 'unbothered': '💅',
+  'living my best life': '🌺', 'main character energy': '👸', 'that girl energy': '✨',
+
+  // Contemplative
+  'thoughtful': '🤔', 'reflective': '💭', 'curious': '🧐', 'contemplative': '🌙',
+  'big brain time': '🧠', 'spiritual gangster': '🔮', 'manifestation mode': '🌟',
+
+  // Stressed/Overwhelmed
+  'stressed': '😰', 'anxious': '😬', 'overwhelmed': '🤯', 'frustrated': '😤', 'nervous': '😅',
+  'tired': '😴', 'exhausted': '💤', 'restless': '😵‍💫', 'salty': '🧂', 'lowkey stressed': '😮‍💨',
+
+  // Neutral/Mixed
+  'melancholy': '🌧️', 'nostalgic': '🍂', 'pensive': '🌅', 'bittersweet': '🌗',
+  'mid energy': '😐', 'sus vibes': '🤨', 'cringe but free': '🤪', 'delulu but happy': '🦄',
+
+  // Gen Z specific
+  'no cap happy': '🚫🧢', 'periodt productive': '💅', 'deadass tired': '💀', 'its giving anxious': '👀',
+  'understood the assignment': '📝', 'left no crumbs': '🍽️', 'caught in 4k': '📸', 'sending me': '💀',
+  'living rent free': '🏠', 'touch grass': '🌱', 'built different': '🏗️', 'chaotic good': '🌪️'
+};
+
+// Helper function to convert a vibe label to emoji if emoji mode is enabled
+export function getEmojiForVibe(label: string): string {
+  const lowerLabel = label.toLowerCase().trim();
+
+  // Direct match
+  if (EMOJI_MAPPINGS[lowerLabel]) {
+    return EMOJI_MAPPINGS[lowerLabel];
+  }
+
+  // Partial match - check if any key is contained in the label
+  for (const [key, emoji] of Object.entries(EMOJI_MAPPINGS)) {
+    if (lowerLabel.includes(key) || key.includes(lowerLabel)) {
+      return emoji;
+    }
+  }
+
+  // Default emoji for unknown vibes
+  return '💫';
+}
 
 // Helper function to get a color for a vibe from the pastel palette
 export function getVibeColor(label: string, index: number): string {

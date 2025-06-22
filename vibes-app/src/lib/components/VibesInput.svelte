@@ -49,8 +49,7 @@
     <div class="mb-4 p-4 bg-blue-50 border border-blue-200 rounded-lg text-sm">
       <p class="font-medium text-blue-800 mb-2">How to format your input:</p>
       <ul class="text-blue-700 space-y-1">
-        <li>• Each line: <code class="bg-white px-1 rounded">percentage label</code></li>
-        <li>• Example: <code class="bg-white px-1 rounded">30 Happy</code></li>
+        <li>• Each line: percentage label</li>
         <li>• Percentages should add up to 100%</li>
         <li>• Maximum 10 entries allowed</li>
       </ul>

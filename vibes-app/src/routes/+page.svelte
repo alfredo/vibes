@@ -61,6 +61,14 @@
   }
 
   $: isValid = $vibesData.isValid && $vibesData.entries.length > 0;
+
+  // Emoji mode state
+  let emojiMode = false;
+
+  // Auto-reload when emoji mode is toggled
+  $: if (emojiMode !== undefined) {
+    vibesActions.loadExample(emojiMode);
+  }
 </script>
 
 <svelte:head>
@@ -82,31 +90,20 @@
         <HistogramChart />
       </div>
 
+                        <!-- Emoji Mode Toggle -->
+      <div style="margin-bottom: 16px;">
+        <label class="flex items-center gap-3 text-[#073642] font-medium cursor-pointer" style="padding-bottom: 12px; display: block;">
+          <input
+            type="checkbox"
+            bind:checked={emojiMode}
+            class="w-5 h-5 text-[#268bd2] bg-[#fdf6e3] border-[#93a1a1] rounded focus:ring-[#268bd2] focus:ring-2"
+          />
+          <span class="text-lg">🎭 Emoji Mode</span>
+        </label>
+      </div>
+
       <!-- Buttons -->
       <div class="flex flex-wrap gap-4">
-        {#if isValid}
-          <button
-            on:click={downloadPNG}
-            class="flex items-center gap-2 px-6 py-3 bg-[#268bd2] text-[#fdf6e3] rounded-lg hover:bg-[#2aa198] transition-colors font-semibold shadow-lg"
-          >
-            <Download size={18} />
-            Download
-          </button>
-          <button
-            on:click={shareVibes}
-            class="flex items-center gap-2 px-6 py-3 bg-[#2aa198] text-[#fdf6e3] rounded-lg hover:bg-[#268bd2] transition-colors font-semibold shadow-lg"
-          >
-            <Share2 size={18} />
-            Share
-          </button>
-        {/if}
-        <button
-          on:click={vibesActions.loadExample}
-          class="flex items-center gap-2 px-6 py-3 bg-[#859900] text-[#fdf6e3] rounded-lg hover:bg-[#b58900] transition-colors font-semibold shadow-lg"
-        >
-          <RefreshCw size={18} />
-          Reload
-        </button>
         <button
           on:click={vibesActions.toggleInputMinimized}
           class="flex items-center gap-2 px-6 py-3 bg-[#657b83] text-[#fdf6e3] rounded-lg hover:bg-[#586e75] transition-colors font-semibold shadow-lg"
@@ -114,6 +111,29 @@
           <Settings size={18} />
           {$isInputMinimized ? 'Show' : 'Hide'} Input
         </button>
+        <button
+          on:click={() => vibesActions.loadExample(emojiMode)}
+          class="flex items-center gap-2 px-6 py-3 bg-[#859900] text-[#fdf6e3] rounded-lg hover:bg-[#b58900] transition-colors font-semibold shadow-lg"
+        >
+          <RefreshCw size={18} />
+          Reload
+        </button>
+        {#if isValid}
+          <button
+            on:click={shareVibes}
+            class="flex items-center gap-2 px-6 py-3 bg-[#2aa198] text-[#fdf6e3] rounded-lg hover:bg-[#268bd2] transition-colors font-semibold shadow-lg"
+          >
+            <Share2 size={18} />
+            Share
+          </button>
+          <button
+            on:click={downloadPNG}
+            class="flex items-center gap-2 px-6 py-3 bg-[#268bd2] text-[#fdf6e3] rounded-lg hover:bg-[#2aa198] transition-colors font-semibold shadow-lg"
+          >
+            <Download size={18} />
+            Download
+          </button>
+        {/if}
       </div>
     </div>
   </main>
@@ -121,31 +141,31 @@
     <!-- Input Drawer - slides up from footer -->
   {#if !$isInputMinimized}
             <div class="fixed left-0 right-0 bg-[#eee8d5] border border-[#93a1a1] rounded-t-lg shadow-2xl z-40 animate-slide-up" style="bottom: 64px;">
-      <div class="max-w-md mx-auto p-6">
-        <div class="flex items-center justify-between mb-4">
+      <div class="max-w-4xl mx-auto p-6">
+        <div class="mb-4">
           <h3 class="text-lg font-semibold text-[#073642]">Enter Your Daily Vibes</h3>
-          <button
-            on:click={vibesActions.toggleInputMinimized}
-            class="text-[#586e75] hover:text-[#073642] text-xl font-bold"
-          >
-            ×
-          </button>
         </div>
 
-        <div class="mb-4 p-3 bg-[#fdf6e3] border border-[#93a1a1] rounded-lg text-sm">
-          <p class="font-medium text-[#073642] mb-2">Format:</p>
-          <ul class="text-[#586e75] space-y-1 text-xs">
-            <li>• Each line: <code class="bg-[#eee8d5] px-1 rounded">percentage label</code></li>
-            <li>• Example: <code class="bg-[#eee8d5] px-1 rounded">30 Happy</code></li>
-            <li>• Percentages should add up to 100%</li>
-          </ul>
-        </div>
+        <div class="flex gap-8">
+          <div style="width: 300px;">
+            <textarea
+              bind:value={$inputText}
+              class="p-4 border border-[#93a1a1] bg-[#fdf6e3] text-[#073642] rounded-lg resize-none font-mono text-sm focus:ring-2 focus:ring-[#268bd2] focus:border-[#268bd2]"
+              style="width: 100%; box-sizing: border-box;"
+              rows="10"
+              placeholder="30 Happy&#10;25 Productive&#10;20 Tired&#10;15 Excited&#10;10 Stressed"
+            ></textarea>
+          </div>
 
-        <textarea
-          bind:value={$inputText}
-          class="w-full p-3 border border-[#93a1a1] bg-[#fdf6e3] text-[#073642] rounded-lg resize-none min-h-[120px] font-mono text-sm focus:ring-2 focus:ring-[#268bd2] focus:border-[#268bd2]"
-          placeholder="30 Happy&#10;25 Productive&#10;20 Tired&#10;15 Excited&#10;10 Stressed"
-        ></textarea>
+          <div class="pt-4">
+            <div class="bg-[#fdf6e3] p-4 rounded-lg border border-[#93a1a1]">
+              <div class="space-y-3 text-sm text-[#586e75]">
+                <div>• Percentages should add up to 100%</div>
+                <div>• Each line: percentage label</div>
+              </div>
+            </div>
+          </div>
+        </div>
 
         {#if $showErrors && $vibesData.errors.length > 0}
           <div class="mt-4 p-3 bg-[#fdf6e3] border border-[#dc322f] rounded-lg text-sm">
