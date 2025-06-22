@@ -77,21 +77,23 @@ export function getRandomExample(): string {
     .join('\n');
 }
 
-// Helper function to get a random color for a vibe
+// Predefined pastel color palette - 10 distinct colors
+const PASTEL_COLORS = [
+  '#FFB3E6', // Soft Pink
+  '#B3E5FF', // Light Blue
+  '#C7FFB3', // Mint Green
+  '#FFE6B3', // Peach
+  '#E6B3FF', // Lavender
+  '#FFD9B3', // Coral
+  '#B3FFE6', // Aqua
+  '#FFB3D9', // Rose
+  '#D9B3FF', // Periwinkle
+  '#B3FFD9'  // Sage
+];
+
+// Helper function to get a color for a vibe from the pastel palette
 export function getVibeColor(label: string, index: number): string {
-  // Generate a random color based on the index and a hash of the label
-  // This ensures colors are random but consistent for the same vibe in the same session
-  const labelHash = label.split('').reduce((hash, char) => {
-    return ((hash << 5) - hash + char.charCodeAt(0)) & 0xffffffff;
-  }, 0);
-
-  // Use both index and label hash to create variety
-  const seed = Math.abs(labelHash) + index * 137;
-
-  // Generate random HSL values
-  const hue = (seed * 137.508) % 360;
-  const saturation = 65 + (seed * 0.1) % 25; // 65-90%
-  const lightness = 45 + (seed * 0.05) % 20; // 45-65%
-
-  return `hsl(${Math.floor(hue)}, ${Math.floor(saturation)}%, ${Math.floor(lightness)}%)`;
+  // Use the index to cycle through our predefined palette
+  // This ensures consistent colors based on position
+  return PASTEL_COLORS[index % PASTEL_COLORS.length];
 }
